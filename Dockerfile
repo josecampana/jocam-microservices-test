@@ -2,8 +2,9 @@ FROM node:alpine
 WORKDIR /usr/app/src
 COPY package*.json ./
 
-RUN npm install --production
+RUN npm i --production
 
 COPY src .
+EXPOSE 8888
 
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
