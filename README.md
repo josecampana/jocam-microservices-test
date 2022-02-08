@@ -102,3 +102,9 @@ Note: you can delete a service with kubectl `delete svc SERVICE_NAME`
 1. `gcloud tasks queues create microservices-task --location europe-west3`
 1. Let's check the existing list of queues `gcloud tasks queues list --location=europe-west3`
 1. Let's check it with `gcloud tasks queues describe microservices-task --location=europe-west3`
+
+## Create Redis
+
+1.`gcloud redis instances create example-redis --size=5 --region=europe-west3`
+1.list of instances `gcloud redis instances list --region=europe-west3`
+1.check particular instace with: `gcloud redis instances describe example-redis --region=europe-west3`

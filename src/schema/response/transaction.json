@@ -1,0 +1,8 @@
+{
+  "201": {
+    "type": "object",
+    "properties": {
+      "transaction_id": { "type": "string" }
+    }
+  }
+}

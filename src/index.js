@@ -1,8 +1,8 @@
 const http = require('http');
 
 function requestHandler(req, res) {
-    res.write('te da cuen');
-    res.end();
+  res.write('te da cuen');
+  res.end();
 }
 
 const server = http.createServer(requestHandler);

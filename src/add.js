@@ -1,36 +1,34 @@
-const { CloudTasksClient } = require("@google-cloud/tasks");
-const client = new CloudTasksClient();
-
+const { CloudTasksClient } = require('@google-cloud/tasks');
 const {
-  GCLOUD_PROJECT_ID: project = "jocam-microservices-test",
-  GCLOUD_TASK_NAME: queue = "example-queue",
-  GCLOUD_TASK_LOCATION: location = "europe-west3",
-  GCLOUD_TASK_RETRY_SECONDS: inSeconds,
-} = process.env;
+  project,
+  queue,
+  location,
+  inSeconds,
+  TASK_NAME_PATTERN,
+} = require('./config');
 
-const name = "pepe";
-const TASK_ID_ORIGINAL = `projects/${project}/locations/${location}/queues/${queue}/tasks/`;
 const NEW_QUEUE_NAME = `${project}@${location}${queue}`;
+
+const client = new CloudTasksClient();
 
 const createTask = async () => {
   const parent = client.queuePath(project, location, queue);
   const task = {
     httpRequest: {
-      httpMethod: "GET",
-      url: "http://localhost:8888/",
-      name,
+      httpMethod: 'GET',
+      url: 'http://localhost:8888/',
     },
   };
 
   if (inSeconds) {
     task.scheduleTime = {
-      seconds: ParseInt(inSeconds) + Date.now() / 1000,
+      seconds: parseInt(inSeconds) + Date.now() / 1000,
     };
   }
 
   const request = { parent, task };
   const [response] = await client.createTask(request);
-  const taskId = response.name.replace(TASK_ID_ORIGINAL, "");
+  const taskId = response.name.replace(TASK_NAME_PATTERN, '');
 
   return { id: taskId, queue: NEW_QUEUE_NAME };
 };

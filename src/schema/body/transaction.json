@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": ["order_id", "amount", "articles"],
+  "properties": {
+    "order_id": { "type": "string" },
+    "articles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference_number": { "type": "string" },
+          "localized_name": { "type": "string" },
+          "name": { "type": "string" },
+          "count": { "type": "integer", "minimum": 1 }
+        },
+        "required": ["reference_number", "count"]
+      }
+    },
+    "amount": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "number" },
+        "currency": { "enum": ["USD", "EUR"] }
+      },
+      "required": ["value", "currency"]
+    }
+  }
+}
